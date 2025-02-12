@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/58526c72-fce5-4ce3-8ac7-ba91fb619589)# AiPathshala
+<b> AiPathshala </B>
 Here I will be sharing Files, Source-Codes, Documentations of my AI Models For My Courses
 
 Terminal Code
