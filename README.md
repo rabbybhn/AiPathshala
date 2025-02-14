@@ -7,3 +7,4 @@ Terminal Code
 webAI
 ![image](https://github.com/user-attachments/assets/c6e6146c-a999-44b7-9ccc-3c870c0c542b)
 
+RUN ENV python webui.py --ip 127.0.0.1 --port 7788
