@@ -1,13 +1,13 @@
 [Unit]
-Description=rundhaka.com ElevenLabs voice agent
+Description=ElevenLabs voice agent (__DOMAIN__)
 After=network.target
 
 [Service]
 Type=simple
 User=www-data
-WorkingDirectory=/var/www/rundhaka-agent
-EnvironmentFile=/etc/rundhaka-agent.env
-ExecStart=/usr/bin/node server.js
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=__ENV_FILE__
+ExecStart=__NODE__ server.js
 Restart=always
 RestartSec=5
 NoNewPrivileges=true
