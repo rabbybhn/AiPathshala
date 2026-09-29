@@ -1,9 +1,6 @@
 services:
   railbot:
-    image: nginx:alpine
+    build: .
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:80"
-    volumes:
-      - ./site:/usr/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

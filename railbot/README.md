@@ -2,7 +2,7 @@
 
 Agent ID: `agent_9201m3n9wwe9e9mtn64cwwdmk39k`
 
-Serves `site/index.html`, which embeds the ElevenLabs widget, behind nginx with HTTPS
+A custom React voice UI (`src/`, built with `@elevenlabs/react`; no embedded widget) built by Docker and served by nginx with HTTPS
 (browsers only allow the microphone on HTTPS).
 
 ## Deploy

@@ -7,7 +7,7 @@ DOMAIN="${DOMAIN:-rundhk.com}"
 cd "$(dirname "$0")"
 
 command -v docker >/dev/null || curl -fsSL https://get.docker.com | sh
-docker compose up -d
+docker compose up -d --build
 
 apt-get update -y && apt-get install -y nginx openssl certbot python3-certbot-nginx
 
