@@ -6,12 +6,12 @@ Serves `site/index.html`, which embeds the ElevenLabs widget, behind nginx with 
 (browsers only allow the microphone on HTTPS).
 
 ## Deploy
-1. Point a DNS A record (e.g. `bot.example.com`) at the VPS IP.
+1. Point a DNS A record for `rundhk.com` at the VPS IP.
 2. In ElevenLabs → Agent → Security: enable public access (or add your domain to the allowlist).
 3. On the VPS:
    ```bash
    git clone https://github.com/rabbybhn/AiPathshala && cd AiPathshala/railbot
-   DOMAIN=bot.example.com EMAIL=you@example.com sudo -E ./deploy.sh
+   EMAIL=you@example.com sudo -E ./deploy.sh   # DOMAIN defaults to rundhk.com
    ```
 
 No API key is needed for a public agent. If you set the agent to private, add a small server

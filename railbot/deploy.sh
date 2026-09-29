@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Run on the Hostinger VPS (Ubuntu/Debian) as root:  DOMAIN=bot.example.com EMAIL=you@example.com ./deploy.sh
+# Run on the Hostinger VPS (Ubuntu/Debian) as root:  EMAIL=you@example.com ./deploy.sh
 set -euo pipefail
-: "${DOMAIN:?set DOMAIN (DNS A record must point to this VPS)}"
-: "${EMAIL:?set EMAIL for Let's Encrypt}"
+DOMAIN="${DOMAIN:-rundhk.com}"
+: "${EMAIL:?set EMAIL for LetsEncrypt}"
 cd "$(dirname "$0")"
 
 command -v docker >/dev/null || curl -fsSL https://get.docker.com | sh
