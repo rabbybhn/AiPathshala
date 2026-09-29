@@ -22,7 +22,14 @@ function setStatus(text) {
   statusEl.textContent = text;
 }
 
+// The agent uses expressive audio tags such as "[warmly]"; hide them in the transcript.
+function stripAudioTags(text) {
+  return text.replace(/\[[^\]]{1,40}\]\s*/g, "").trim();
+}
+
 function addMessage(text, who) {
+  text = stripAudioTags(text);
+  if (!text) return;
   const div = document.createElement("div");
   div.className = `msg ${who}`;
   div.textContent = text;

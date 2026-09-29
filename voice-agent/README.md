@@ -30,7 +30,7 @@ The script checks that the domain resolves to this server and stops with a clear
 To use another domain: `sudo DOMAIN=other.example.com bash deploy/setup.sh you@example.com`.
 
 ## 3. ElevenLabs settings
-Agent → **Security**: add `bdrailwayagent.webry.tech` to the **allowlist**. If you did not enter an API key, also turn authentication **off**.
+Nothing to change for the current agent: authentication is off and the allowlist is empty, so any domain can connect and the API key can be left empty in the installer. If you later turn authentication on, enter the API key when the installer asks and add `bdrailwayagent.webry.tech` to the agent's allowlist.
 
 ## Commands
 ```bash
