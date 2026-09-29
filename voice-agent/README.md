@@ -1,6 +1,6 @@
 # ElevenLabs Voice Agent — bdrailwayagent.webry.tech
 
-Voice agent page for **ফজলে রাব্বি ভুইয়া** (`agent_3601m3nj9tyqez0sbcf61j5hvvv1`), deployed on its own subdomain of a Hostinger VPS. The installer only adds one nginx site and one systemd service. It does not touch other sites on the server, such as rundhaka.com.
+Voice agent page for **ফজলে রাব্বি ভুইয়া** (`agent_3601m3nj9tyqez0sbcf61j5hvvv1`), deployed on its own subdomain of a Hostinger VPS. The installer adds one nginx site and one systemd service. If another nginx site already names the subdomain (e.g. RailBot), the installer disables it and keeps a backup in `/root/nginx-disabled-<domain>/`. Its app files and process are left running. Other sites, such as rundhaka.com, are not touched. To restore the old site, copy the backup file back to `/etc/nginx/sites-enabled/`, remove `/etc/nginx/sites-enabled/<domain>` and run `nginx -t && systemctl reload nginx`.
 
 - `server.js` is a Node server with no dependencies. It serves `public/` and exposes `/api/conversation-token`.
   - If `ELEVENLABS_API_KEY` is set, it gets a short-lived WebRTC token from ElevenLabs. The key never reaches the browser.

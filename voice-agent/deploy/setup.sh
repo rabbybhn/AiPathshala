@@ -76,6 +76,19 @@ if [[ -d /etc/nginx/sites-enabled ]]; then
 else
   NGINX_CONF="/etc/nginx/conf.d/$DOMAIN.conf"
 fi
+# Take over the hostname: disable any other enabled nginx site that names it,
+# keeping a backup so it can be restored. Catch-all/default sites are left alone.
+BACKUP_DIR="/root/nginx-disabled-$DOMAIN"
+for f in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
+  [[ -e "$f" ]] || continue
+  [[ "$(readlink -f "$f")" == "$(readlink -f "$NGINX_CONF")" ]] && continue
+  if grep -Eq "^[[:space:]]*server_name[^;]*[[:space:]]$DOMAIN[[:space:];]" "$f"; then
+    mkdir -p "$BACKUP_DIR"
+    echo "   Disabling existing site $f (backup in $BACKUP_DIR)"
+    cp -aL "$f" "$BACKUP_DIR/$(basename "$f")"
+    rm -f "$f"
+  fi
+done
 # Keep certbot's HTTPS edits on re-runs; only write the file the first time.
 if [[ ! -f "$NGINX_CONF" ]]; then
   sed -e "s|__DOMAIN__|$DOMAIN|g" -e "s|__PORT__|$PORT|g" \
