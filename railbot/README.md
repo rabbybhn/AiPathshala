@@ -6,7 +6,7 @@ Serves `site/index.html`, which embeds the ElevenLabs widget, behind nginx with 
 (browsers only allow the microphone on HTTPS).
 
 ## Deploy
-1. Point a DNS A record for `rundhk.com` at the VPS IP.
+1. Point DNS A records for `rundhk.com` and `www.rundhk.com` at the VPS IP.
 2. In ElevenLabs → Agent → Security: enable public access (or add your domain to the allowlist).
 3. On the VPS:
    ```bash

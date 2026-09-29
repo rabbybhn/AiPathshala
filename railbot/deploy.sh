@@ -11,7 +11,7 @@ docker compose up -d
 apt-get update -y && apt-get install -y nginx certbot python3-certbot-nginx
 cat > /etc/nginx/sites-available/railbot <<CONF
 server {
-    server_name $DOMAIN;
+    server_name $DOMAIN www.$DOMAIN;
     location / {
         proxy_pass http://127.0.0.1:8080;
         proxy_set_header Host \$host;
@@ -21,5 +21,5 @@ server {
 CONF
 ln -sf /etc/nginx/sites-available/railbot /etc/nginx/sites-enabled/railbot
 nginx -t && systemctl reload nginx
-certbot --nginx -d "$DOMAIN" -m "$EMAIL" --agree-tos --no-eff-email --redirect -n
+certbot --nginx -d "$DOMAIN" -d "www.$DOMAIN" -m "$EMAIL" --agree-tos --no-eff-email --redirect -n
 echo "Live at https://$DOMAIN"
