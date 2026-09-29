@@ -1,0 +1,10 @@
+{
+  "name": "rundhaka-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ElevenLabs voice agent for rundhaka.com",
+  "type": "module",
+  "main": "server.js",
+  "engines": { "node": ">=18" },
+  "scripts": { "start": "node server.js" }
+}

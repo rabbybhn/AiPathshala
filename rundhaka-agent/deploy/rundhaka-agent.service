@@ -1,0 +1,17 @@
+[Unit]
+Description=rundhaka.com ElevenLabs voice agent
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/rundhaka-agent
+EnvironmentFile=/etc/rundhaka-agent.env
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

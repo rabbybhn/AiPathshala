@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ফজলে রাব্বি ভুইয়া — AI ভয়েস এজেন্ট</title>
+  <meta name="description" content="ফজলে রাব্বি ভুইয়ার AI ভয়েস এজেন্টের সাথে কথা বলুন — rundhaka.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="card">
+    <div id="orb" class="orb" aria-hidden="true"><span></span></div>
+    <h1>ফজলে রাব্বি ভুইয়া</h1>
+    <p class="subtitle">AI ভয়েস এজেন্ট — কথা বলতে নিচের বোতামে চাপ দিন</p>
+
+    <div class="controls">
+      <button id="start" class="btn primary">কথা শুরু করুন</button>
+      <button id="stop" class="btn" hidden>শেষ করুন</button>
+    </div>
+
+    <p id="status" class="status" role="status">প্রস্তুত</p>
+
+    <div id="log" class="log" aria-live="polite"></div>
+
+    <form id="text-form" class="text-form" hidden>
+      <input id="text-input" type="text" placeholder="অথবা এখানে লিখুন…" autocomplete="off" />
+      <button class="btn" type="submit">পাঠান</button>
+    </form>
+  </main>
+  <footer>rundhaka.com</footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
