@@ -17,3 +17,10 @@ Serves `site/index.html`, which embeds the ElevenLabs widget, behind nginx with 
 No API key is needed for a public agent. If you set the agent to private, add a small server
 endpoint that calls `GET /v1/convai/conversation/token?agent_id=...` with `xi-api-key` from an
 env var and hands the token to the client. Never ship the API key in the page.
+
+## Deploy on a bare IP (no domain)
+```bash
+cd AiPathshala/railbot && sudo DOMAIN=ip ./deploy.sh
+```
+Serves `https://<server-ip>` with a self-signed certificate (the browser will warn once; HTTPS is
+still required for the microphone). Add the IP's origin to the agent's allowlist if you use one.
