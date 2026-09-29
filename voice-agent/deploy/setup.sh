@@ -47,6 +47,16 @@ chown -R www-data:www-data "$APP_DIR"
 if [[ -f "$ENV_FILE" ]]; then
   PORT="$(sed -n 's/^PORT=//p' "$ENV_FILE")"
   echo "==> Reusing $ENV_FILE (port $PORT)"
+  # The saved port may have been taken by another app since (or by an earlier run).
+  # Keep it only if it is free or already answering as this voice agent.
+  if port_in_use "$PORT" && [[ "$(curl -fsS --max-time 3 "http://127.0.0.1:$PORT/api/health" 2>/dev/null)" != '{"ok":true}' ]]; then
+    OLD_PORT="$PORT"
+    PORT=3100
+    while port_in_use "$PORT"; do PORT=$((PORT + 1)); done
+    echo "   Port $OLD_PORT is used by another app; switching to $PORT"
+    sed -i "s|^PORT=.*|PORT=$PORT|" "$ENV_FILE"
+    systemctl stop "$SERVICE" 2>/dev/null || true
+  fi
 else
   # Pick a free local port so existing apps on this VPS keep theirs.
   PORT=3100
@@ -94,6 +104,7 @@ if [[ ! -f "$NGINX_CONF" ]]; then
   sed -e "s|__DOMAIN__|$DOMAIN|g" -e "s|__PORT__|$PORT|g" \
       "$SRC_DIR/deploy/nginx-site.conf.template" > "$NGINX_CONF"
 fi
+sed -i -E "s#proxy_pass http://127\.0\.0\.1:[0-9]+#proxy_pass http://127.0.0.1:$PORT#" "$NGINX_CONF"
 [[ -d /etc/nginx/sites-enabled ]] && ln -sf "$NGINX_CONF" "/etc/nginx/sites-enabled/$DOMAIN"
 if ! nginx -t; then
   echo "!! nginx config test failed; removing $DOMAIN site so other sites keep working."
@@ -103,6 +114,11 @@ systemctl reload nginx
 
 if command -v ufw >/dev/null && ufw status | grep -q "Status: active"; then
   ufw allow 80/tcp; ufw allow 443/tcp
+fi
+
+sleep 1
+if [[ "$(curl -fsS --max-time 5 "http://127.0.0.1:$PORT/api/health" 2>/dev/null)" != '{"ok":true}' ]]; then
+  echo "!! The voice agent is not answering on port $PORT. Check: journalctl -u $SERVICE -n 30"; exit 1
 fi
 
 echo "==> Requesting HTTPS certificate for $DOMAIN"
